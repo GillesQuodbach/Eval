@@ -57,19 +57,25 @@ public class ShopApp {
 				displayArticles();
 				break;
 			case 5:
-//				displayArticlesByKeyWord();
-				displayArticlesByKeyWord();
+				displayRemote();
 				break;
 			case 6:
-				displayCategories();
+				displayPresent();
 				break;
 			case 7:
-				displayArticlesByCategoryId();
+				displayArticlesByKeyWord();
 				break;
+				
 			case 8:
-				connection();
+				displayCategories();
 				break;
 			case 9:
+				displayArticlesByCategoryId();
+				break;
+			case 10:
+				connection();
+				break;
+			case 11:
 				System.out.println("à bientôt dans notre boutique :)");
 				break;
 			default:
@@ -89,11 +95,13 @@ public class ShopApp {
 		System.out.println("2 : Retirer un article du panier");
 		System.out.println("3 : Afficher mon panier + total pour passer commande");
 		System.out.println("4 : Afficher toutes les formations");
-		System.out.println("5 : Rechercher une formation par mot clé");
-		System.out.println("6 : Afficher toutes les catégories en base");
-		System.out.println("7 : Afficher tous les articles d'une catégorie");
-		System.out.println("8 : Connexion(Deconnexion) à votre compte");
-		System.out.println("9 : sortir de l'application");
+		System.out.println("5 : Afficher les formations en distancielles");
+		System.out.println("6 : Afficher les formations en présentielle");
+		System.out.println("7 : Rechercher une formation par mot clé");
+		System.out.println("8 : Afficher toutes les catégories en base");
+		System.out.println("9 : Afficher tous les articles d'une catégorie");
+		System.out.println("10 : Connexion(Deconnexion) à votre compte");
+		System.out.println("11 : Sortir de l'application");
 	}
 
 	/**
@@ -131,6 +139,36 @@ public class ShopApp {
 			System.out.println("cette catégorie n'existe pas !");
 	}
 
+	/**
+	 * Méthode qui affiche tous les articles en remote
+	 */
+	private static void displayRemote() {
+		ArrayList<Article> articles = business.readRemoteArticles();
+		if (articles != null) {
+			System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+			System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n", COLUMN_ID, COLUMN_NAME,COLUMN_DESCRIPTION, COLUMN_DURATION,COLUMN_FORMAT,COLUMN_PRICE);
+			System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+			articles.forEach(a -> System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n",
+					a.getId(), a.getName(), a.getDescription(), a.getDuration() ,a.getFormat(), a.getPrice()));
+		} else
+			System.out.println("aucune formation trouvée !");
+	}
+	
+	/**
+	 * Méthode qui affiche tous les articles en remote
+	 */
+	private static void displayPresent() {
+		ArrayList<Article> articles = business.readPresentArticles();
+		if (articles != null) {
+			System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+			System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n", COLUMN_ID, COLUMN_NAME,COLUMN_DESCRIPTION, COLUMN_DURATION,COLUMN_FORMAT,COLUMN_PRICE);
+			System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+			articles.forEach(a -> System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n",
+					a.getId(), a.getName(), a.getDescription(), a.getDuration() ,a.getFormat(), a.getPrice()));
+		} else
+			System.out.println("aucune formation trouvée !");
+	}
+	
 	/**
 	 * Méthode qui affiche tous les articles par catégorie en utilisant printf
 	 */

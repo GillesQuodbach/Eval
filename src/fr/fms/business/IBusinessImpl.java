@@ -89,8 +89,18 @@ public class IBusinessImpl implements IBusiness {
 	}
 	
 	
+	// Recherche par mot clé
 	public ArrayList<Article> readAllByKeyWord(String keyWord) {
 		return ((ArticleDao) articleDao).readByKeyWord(keyWord);
+	}
+
+	// Formation remote
+	public ArrayList<Article> readRemoteArticles() {
+		return ((ArticleDao) articleDao).readAllRemoteArticles();
+	}
+	// Formation présentielle
+	public ArrayList<Article> readPresentArticles() {
+		return ((ArticleDao) articleDao).readAllPresentArticles();
 	}
 	/**
 	 * renvoi le total de la commande en cours

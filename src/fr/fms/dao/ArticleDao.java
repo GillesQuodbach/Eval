@@ -181,4 +181,50 @@ public class ArticleDao implements Dao<Article> {
 		return articles;
 	}
 	
+	public ArrayList<Article> readAllRemoteArticles() {
+		String keyword = "Distancielle";
+		ArrayList<Article> articles = new ArrayList<Article>();
+		String strSql = "SELECT * FROM T_Articles where FORMAT LIKE " +"'%"+ keyword+"%'";		
+		try(Statement statement = connection.createStatement()){
+			try(ResultSet resultSet = statement.executeQuery(strSql)){ 			
+				while(resultSet.next()) {
+					int rsId = resultSet.getInt(1);	
+					String rsName = resultSet.getString(2);
+					String rsDescription = resultSet.getString(3);
+					int rsDuration = resultSet.getInt(4);
+					String rsFormat= resultSet.getString(5);
+					double rsPrice = resultSet.getDouble(6);		
+					int rsIdCategory = resultSet.getInt(7);
+					articles.add((new Article(rsId,rsName,rsDescription,rsDuration,rsFormat,rsPrice,rsIdCategory)));						
+				}	
+			}
+		} catch (SQLException e) {
+			logger.severe("pb sql sur renvoi des formations " + e.getMessage());
+		}			
+		return articles;
+	}
+	
+	public ArrayList<Article> readAllPresentArticles() {
+		String keyword = "Présentielle";
+		ArrayList<Article> articles = new ArrayList<Article>();
+		String strSql = "SELECT * FROM T_Articles where FORMAT LIKE " +"'%"+ keyword+"%'";		
+		try(Statement statement = connection.createStatement()){
+			try(ResultSet resultSet = statement.executeQuery(strSql)){ 			
+				while(resultSet.next()) {
+					int rsId = resultSet.getInt(1);	
+					String rsName = resultSet.getString(2);
+					String rsDescription = resultSet.getString(3);
+					int rsDuration = resultSet.getInt(4);
+					String rsFormat= resultSet.getString(5);
+					double rsPrice = resultSet.getDouble(6);		
+					int rsIdCategory = resultSet.getInt(7);
+					articles.add((new Article(rsId,rsName,rsDescription,rsDuration,rsFormat,rsPrice,rsIdCategory)));						
+				}	
+			}
+		} catch (SQLException e) {
+			logger.severe("pb sql sur renvoi des formations " + e.getMessage());
+		}			
+		return articles;
+	}
+	
 }
