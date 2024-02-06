@@ -161,7 +161,7 @@ public class ArticleDao implements Dao<Article> {
 
 	public ArrayList<Article> readByKeyWord(String keyword) {
 		ArrayList<Article> articles = new ArrayList<Article>();
-		String strSql = "SELECT * FROM T_Articles where Name LIKE " +"'"+ keyword+"%'";		
+		String strSql = "SELECT * FROM T_Articles where Name LIKE " +"'%"+ keyword+"%'";		
 		try(Statement statement = connection.createStatement()){
 			try(ResultSet resultSet = statement.executeQuery(strSql)){ 			
 				while(resultSet.next()) {

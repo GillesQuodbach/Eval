@@ -145,7 +145,7 @@ public class ShopApp {
 			articles.forEach(a -> System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n",
 					a.getId(), a.getName(), a.getDescription(), a.getDuration() ,a.getFormat(), a.getPrice()));
 		} else
-			System.out.println("cette catégorie n'existe pas !");
+			System.out.println("aucune formation trouvée !");
 	}
 	
 	/**
