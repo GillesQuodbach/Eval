@@ -14,27 +14,14 @@ import fr.fms.entities.Article;
 
 public class ArticleDao implements Dao<Article> {
 
-//	public boolean createStatement(Article obj) {
-//		try (Statement statement = connection.createStatement()){
-//			String str = "INSERT INTO T_Articles (Description, Brand, UnitaryPrice)"
-//						+ " VALUES ('"+ obj.getDescription()+"' ,'" + obj.getBrand() + "',"+ obj.getPrice() +" );";			
-//			int row = statement.executeUpdate(str);
-//			if(row == 1)		return true;
-//		} catch (SQLException e) {
-//			//e.printStackTrace();
-//			logger.log(Level.SEVERE,"pb sql sur la création d'un article");
-//		} 		
-//		return false;
-//	}
+
 	public ArticleDao() {
-		//logger.info("Here we Go !");
 	}
 
 	/**
 	 * Méthode qui crée un article en base sans prendre en compte l'id (généré automatiquement)
 	 * @param Article à ajouter dans la table des articles
 	 */
-//	int id, String name, String description, int duration, String format, double price, int category
 	@Override
 	public boolean create(Article obj) {
 		String str = "INSERT INTO T_Articles (Name, Description, Duration, Format, Price, IdCategory) VALUES (?,?,?,?,?,?);";	

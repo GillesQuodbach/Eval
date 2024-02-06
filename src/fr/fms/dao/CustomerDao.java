@@ -23,7 +23,6 @@ public class CustomerDao implements Dao<Customer> {
 			ps.execute();
 			try(ResultSet generatedKeySet = ps.getGeneratedKeys()){
 				if(generatedKeySet.next()) {
-					//obj.setIdCustomer(0);
 					return true;
 				}	
 			}		

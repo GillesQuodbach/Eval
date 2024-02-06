@@ -68,16 +68,16 @@ CREATE TABLE T_Articles (
 	FOREIGN KEY (IdCategory)	REFERENCES T_Categories(IdCategory)
 ) ENGINE = InnoDB;
 
-INSERT INTO T_Articles ( Name, Description, Duration ,Format, Price, IdCategory ) VALUES ( 'Développeur Web Full Stack'     ,	'Devenir un développeur web complet.', 90, 'Présentielle'		, 3000,1 );
-INSERT INTO T_Articles ( Name, Description, Duration ,Format, Price, IdCategory ) VALUES ( 'Formation Data Science'     ,	'Analyser et interpréter des données complexes.', 60, 'Distancielle'		, 2500,2 );
-INSERT INTO T_Articles ( Name, Description, Duration ,Format, Price, IdCategory ) VALUES ( 'Formation Cybersécurité'     ,	'Protéger les systèmes contre les menaces numériques.', 45, 'Présentielle'		, 2000,4 );
-INSERT INTO T_Articles ( Name, Description, Duration ,Format, Price, IdCategory ) VALUES ( 'Formation Administration Système Linux'     ,	'Administration système sous Linux.', 30, 'Distancielle'		, 1500,1 );
-INSERT INTO T_Articles ( Name, Description, Duration ,Format, Price, IdCategory ) VALUES ( 'Formation Développement Mobile'     ,	'Créer des applications pour les plateformes iOS et Android', 60, 'Distancielle'		, 2800,2 );
-INSERT INTO T_Articles ( Name, Description, Duration ,Format, Price, IdCategory ) VALUES ( 'Formation Cloud Computing'     ,	'Déployer des applications dans le cloud', 45, 'Présentielle'		, 1800,2 );
-INSERT INTO T_Articles ( Name, Description, Duration ,Format, Price, IdCategory ) VALUES ( 'Formation Python pour les débutants'     ,	'Programmation en Python pour les débutants', 30, 'Présentielle'		, 1200,1 );
-INSERT INTO T_Articles ( Name, Description, Duration ,Format, Price, IdCategory ) VALUES ( 'Formation Big Data et Hadoop'     ,	'Apprenez à utiliser Hadoop pour le traitement des données massives', 60, 'Présentielle'		, 2500,4 );
-INSERT INTO T_Articles ( Name, Description, Duration ,Format, Price, IdCategory ) VALUES ( 'Blockchain et Cryptomonnaies'     ,	'Fondamentaux de la technologie blockchain', 40, 'Distancielle'		, 2000,2 );
-INSERT INTO T_Articles ( Name, Description, Duration ,Format, Price, IdCategory ) VALUES ( 'Formation DevOps'     ,	'Apprenez les pratiques DevOps', 45, 'Présentielle'		, 3500,2 );
+INSERT INTO T_Articles ( Name, Description, Duration ,Format, Price, IdCategory ) VALUES ( 'Développeur Web Full Stack'     ,	'Développeur web complet.', 90, 'Présentielle'		, 3000,1 );
+INSERT INTO T_Articles ( Name, Description, Duration ,Format, Price, IdCategory ) VALUES ( 'Data Science'     ,	'Analyser et interpréter des données', 60, 'Distancielle'		, 2500,2 );
+INSERT INTO T_Articles ( Name, Description, Duration ,Format, Price, IdCategory ) VALUES ( 'Cybersécurité'     ,	'Protéger les systèmes.', 45, 'Présentielle'		, 2000,4 );
+INSERT INTO T_Articles ( Name, Description, Duration ,Format, Price, IdCategory ) VALUES ( 'Administration Système Linux'     ,	'Administration système sous Linux.', 30, 'Distancielle'		, 1500,1 );
+INSERT INTO T_Articles ( Name, Description, Duration ,Format, Price, IdCategory ) VALUES ( 'Développement Mobile'     ,	'Créer des applications mobile', 60, 'Distancielle'		, 2800,2 );
+INSERT INTO T_Articles ( Name, Description, Duration ,Format, Price, IdCategory ) VALUES ( 'Cloud Computing'     ,	'Déployer dans le cloud', 45, 'Présentielle'		, 1800,2 );
+INSERT INTO T_Articles ( Name, Description, Duration ,Format, Price, IdCategory ) VALUES ( 'Python pour les débutants'     ,	'Python pour les débutants', 30, 'Présentielle'		, 1200,1 );
+INSERT INTO T_Articles ( Name, Description, Duration ,Format, Price, IdCategory ) VALUES ( 'Big Data et Hadoop'     ,	'Apprenez à utiliser Hadoop', 60, 'Présentielle'		, 2500,4 );
+INSERT INTO T_Articles ( Name, Description, Duration ,Format, Price, IdCategory ) VALUES ( 'Blockchain et Cryptomonnaies'     ,	'La technologie blockchain', 40, 'Distancielle'		, 2000,2 );
+INSERT INTO T_Articles ( Name, Description, Duration ,Format, Price, IdCategory ) VALUES ( 'DevOps'     ,	'Apprenez les pratiques DevOps', 45, 'Présentielle'		, 3500,2 );
 
 
 

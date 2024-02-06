@@ -30,7 +30,6 @@ public class BddConnection {
 			getConfigFile();								
 			Class.forName(driver);	
 			connection = DriverManager.getConnection(url,login,password);				
-			//if(connection != null) logger.info("access bdd success"); 
 		}			
 		catch (ClassNotFoundException | SQLException e) {
 			logger.severe("connection pb : " + e.getMessage());

@@ -6,7 +6,7 @@ import java.util.Properties;
 
 /**
  * programme permettant de regénérer le fichier de configuration
- * @author El babili - 2023
+ * @author QUODBACH Gilles - 2023
  * 
  */
 
@@ -19,7 +19,6 @@ public class CreateConfigFile {
 			properties.setProperty("db.login", "root");
 			properties.setProperty("db.password", "fms2024");			
 			properties.store(ops , "No comment !");
-			//System.out.println("file config.properties generated ! ");
 		}
 		 catch (IOException io) {
 	            io.printStackTrace();
