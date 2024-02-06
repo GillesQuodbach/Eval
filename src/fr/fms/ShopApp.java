@@ -37,10 +37,10 @@ public class ShopApp {
 	private static String login = null;
 
 	public static void main(String[] args) {
-		System.out.println("Bonjour et bienvenu dans ma boutique, voici la liste d'articles en stock\n");
+		System.out.println("Bonjour et bienvenu sur FMS FORMATION, voici la liste de nos formations \n");
 		displayArticles();
 		int choice = 0;
-		while (choice != 8) {
+		while (choice != 11) {
 			displayMenu();
 			choice = scanInt();
 			switch (choice) {
@@ -79,7 +79,7 @@ public class ShopApp {
 				System.out.println("à bientôt dans notre boutique :)");
 				break;
 			default:
-				System.out.println("veuillez saisir une valeur entre 1 et 8");
+				System.out.println("veuillez saisir une valeur entre 1 et 11");
 			}
 		}
 	}
@@ -91,15 +91,15 @@ public class ShopApp {
 		if (login != null)
 			System.out.print(TEXT_BLUE + "Compte : " + login);
 		System.out.println("\n" + "Pour réaliser une action, tapez le code correspondant");
-		System.out.println("1 : Ajouter un article au panier");
-		System.out.println("2 : Retirer un article du panier");
+		System.out.println("1 : Ajouter une foramtion au panier");
+		System.out.println("2 : Retirer une formation du panier");
 		System.out.println("3 : Afficher mon panier + total pour passer commande");
 		System.out.println("4 : Afficher toutes les formations");
 		System.out.println("5 : Afficher les formations en distancielles");
-		System.out.println("6 : Afficher les formations en présentielle");
+		System.out.println("6 : Afficher les formations en présentielles");
 		System.out.println("7 : Rechercher une formation par mot clé");
 		System.out.println("8 : Afficher toutes les catégories en base");
-		System.out.println("9 : Afficher tous les articles d'une catégorie");
+		System.out.println("9 : Afficher tous les formations d'une catégorie");
 		System.out.println("10 : Connexion(Deconnexion) à votre compte");
 		System.out.println("11 : Sortir de l'application");
 	}
@@ -199,7 +199,7 @@ public class ShopApp {
 	 * Méthode qui supprime un article du panier
 	 */
 	public static void removeArticle() {
-		System.out.println("Selectionner l'id de l'article à supprimer du panier");
+		System.out.println("Selectionner l'id de la formation à supprimer du panier");
 		int id = scanInt();
 		business.rmFromCart(id);
 		displayCart(false);
@@ -209,14 +209,14 @@ public class ShopApp {
 	 * Méthode qui ajoute un article au panier
 	 */
 	public static void addArticle() {
-		System.out.println("Selectionner l'id de l'article à ajouter au panier");
+		System.out.println("Selectionner l'id de la formation à ajouter au panier");
 		int id = scanInt();
 		Article article = business.readOneArticle(id);
 		if (article != null) {
 			business.addToCart(article);
 			displayCart(false);
 		} else
-			System.out.println("l'article que vous souhaitez ajouter n'existe pas, pb de saisi id");
+			System.out.println("la formation que vous souhaitez ajouter n'existe pas, pb de saisi id");
 	}
 
 	/**
