@@ -1,14 +1,16 @@
 package fr.fms;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import fr.fms.authentication.Authenticate;
 import fr.fms.business.IBusinessImpl;
+import fr.fms.dao.ArticleDao;
 import fr.fms.entities.Article;
 import fr.fms.entities.Category;
 import fr.fms.entities.Customer;
 
 /**
- * Application console de vente d'articles en base permettant d'exploiter une
+ * Application console de vente de formation en base permettant d'exploiter une
  * couche métier/dao pour créer un panier en ajoutant ou retirant des articles
  * puis passer commande à tout instant, cela génère une commande en base avec
  * tous les éléments associés
@@ -24,10 +26,12 @@ public class ShopApp {
 
 	public static final String TEXT_BLUE = "\u001B[36m";
 	public static final String TEXT_RESET = "\u001B[0m";
-	private static final String COLUMN_ID = "IDENTIFIANT";
+	private static final String COLUMN_ID = "ID";
 	private static final String COLUMN_NAME = "NOM";
 	private static final String COLUMN_DESCRIPTION = "DESCRIPTION";
-	private static final String COLUMN_PRICE = "PRIX";
+	private static final String COLUMN_DURATION = "DUREE/JOUR";
+	private static final String COLUMN_FORMAT = "FORMAT";
+	private static final String COLUMN_PRICE = "PRIX/€";
 
 	private static int idUser = 0;
 	private static String login = null;
@@ -53,15 +57,19 @@ public class ShopApp {
 				displayArticles();
 				break;
 			case 5:
-				displayCategories();
+//				displayArticlesByKeyWord();
+				displayArticlesByKeyWord();
 				break;
 			case 6:
-				displayArticlesByCategoryId();
+				displayCategories();
 				break;
 			case 7:
-				connection();
+				displayArticlesByCategoryId();
 				break;
 			case 8:
+				connection();
+				break;
+			case 9:
 				System.out.println("à bientôt dans notre boutique :)");
 				break;
 			default:
@@ -80,11 +88,12 @@ public class ShopApp {
 		System.out.println("1 : Ajouter un article au panier");
 		System.out.println("2 : Retirer un article du panier");
 		System.out.println("3 : Afficher mon panier + total pour passer commande");
-		System.out.println("4 : Afficher tous les articles en stock");
-		System.out.println("5 : Afficher toutes les catégories en base");
-		System.out.println("6 : Afficher tous les articles d'une catégorie");
-		System.out.println("7 : Connexion(Deconnexion) à votre compte");
-		System.out.println("8 : sortir de l'application");
+		System.out.println("4 : Afficher toutes les formations");
+		System.out.println("5 : Rechercher une formation par mot clé");
+		System.out.println("6 : Afficher toutes les catégories en base");
+		System.out.println("7 : Afficher tous les articles d'une catégorie");
+		System.out.println("8 : Connexion(Deconnexion) à votre compte");
+		System.out.println("9 : sortir de l'application");
 	}
 
 	/**
@@ -93,8 +102,7 @@ public class ShopApp {
 	public static void displayArticles() {
 		// En-têtes des colonnes
 		System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
-		System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n", "ID", "Nom", "Description", "Durée/jours", "Format",
-				"Prix/€");
+		System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n",  COLUMN_ID, COLUMN_NAME,COLUMN_DESCRIPTION, COLUMN_DURATION,COLUMN_FORMAT,COLUMN_PRICE);
 		System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
 		// Lignes des articles
 		business.readArticles().forEach(article -> {
@@ -123,6 +131,23 @@ public class ShopApp {
 			System.out.println("cette catégorie n'existe pas !");
 	}
 
+	/**
+	 * Méthode qui affiche tous les articles par catégorie en utilisant printf
+	 */
+	private static void displayArticlesByKeyWord() {
+		System.out.println("saisissez votre mot clé");
+		String word = scan.next();
+		ArrayList<Article> articles = business.readAllByKeyWord(word);
+		if (articles != null) {
+			System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+			System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n", COLUMN_ID, COLUMN_NAME,COLUMN_DESCRIPTION, COLUMN_DURATION,COLUMN_FORMAT,COLUMN_PRICE);
+			System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+			articles.forEach(a -> System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n",
+					a.getId(), a.getName(), a.getDescription(), a.getDuration() ,a.getFormat(), a.getPrice()));
+		} else
+			System.out.println("cette catégorie n'existe pas !");
+	}
+	
 	/**
 	 * Méthode qui affiche toutes les catégories
 	 */

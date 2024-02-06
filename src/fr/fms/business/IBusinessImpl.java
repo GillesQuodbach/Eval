@@ -87,7 +87,11 @@ public class IBusinessImpl implements IBusiness {
 	public ArrayList<Article> readArticlesByCatId(int id) {
 		return ((ArticleDao) articleDao).readAllByCat(id);
 	}
-
+	
+	
+	public ArrayList<Article> readAllByKeyWord(String keyWord) {
+		return ((ArticleDao) articleDao).readByKeyWord(keyWord);
+	}
 	/**
 	 * renvoi le total de la commande en cours
 	 * @return total

@@ -152,4 +152,33 @@ public class ArticleDao implements Dao<Article> {
 		}			
 		return articles;
 	}
+	
+	/**
+	 * Méthode qui renvoi toutes les formations par mot clé
+	 * @param keyword (mot recherché)
+	 * @return liste d'articles
+	 */
+
+	public ArrayList<Article> readByKeyWord(String keyword) {
+		ArrayList<Article> articles = new ArrayList<Article>();
+		String strSql = "SELECT * FROM T_Articles where Name LIKE " +"'"+ keyword+"%'";		
+		try(Statement statement = connection.createStatement()){
+			try(ResultSet resultSet = statement.executeQuery(strSql)){ 			
+				while(resultSet.next()) {
+					int rsId = resultSet.getInt(1);	
+					String rsName = resultSet.getString(2);
+					String rsDescription = resultSet.getString(3);
+					int rsDuration = resultSet.getInt(4);
+					String rsFormat= resultSet.getString(5);
+					double rsPrice = resultSet.getDouble(6);		
+					int rsIdCategory = resultSet.getInt(7);
+					articles.add((new Article(rsId,rsName,rsDescription,rsDuration,rsFormat,rsPrice,rsIdCategory)));						
+				}	
+			}
+		} catch (SQLException e) {
+			logger.severe("pb sql sur renvoi des formations par mot clé " + e.getMessage());
+		}			
+		return articles;
+	}
+	
 }

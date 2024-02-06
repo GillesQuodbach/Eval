@@ -12,7 +12,11 @@ import fr.fms.entities.User;
 
 public class TestDaoComponents {	
 	public static void main(String[] args) {
-		System.out.println(new UserDao().findUserByLogin("Anderson"));		
+//		System.out.println(new UserDao().findUserByLogin("Anderson"));		
+		
+//		ArticleDao articleDao = new ArticleDao();
+//		String keyWord = "Devop";
+//		System.out.println(articleDao.readAllByKeyWord(keyWord));
 	}
 
 	//----------------Ex 10
@@ -31,6 +35,8 @@ public class TestDaoComponents {
 //				}
 //			}	
 //		}	
+
+		    
 		
 		//méthode 2
 		User user = userDao.findUserByCredentials(login, pwd);
