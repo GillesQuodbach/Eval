@@ -141,6 +141,11 @@ public class ShopApp {
 			case 13:
 				displayArticles();
 //				System.out.println("13 : Supprimer une formation de la boutique");
+				System.out.println("Saisissez l'ID de la formation à supprimer: ");
+				int articleIdToRemove = scan.nextInt();
+				scan.nextLine();
+				Article articleToRemove = DaoFactory.getArticleDao().read(articleIdToRemove);
+				DaoFactory.getArticleDao().delete(articleToRemove);
 				break;
 			case 14:
 				displayArticles();
@@ -161,10 +166,10 @@ public class ShopApp {
 				displayCategories();
 //				System.out.println("16 : Supprimer une catégorie de formation");
 				System.out.println("Saisissez l'ID de la catégorie à supprimer: ");
-				int IdToRemove = scan.nextInt();
+				int categoryIdToRemove = scan.nextInt();
 				scan.nextLine();
-				Category catToRemove = DaoFactory.getCategoryDao().read(IdToRemove);
-				DaoFactory.getCategoryDao().delete(catToRemove);
+				Category categoryToRemove = DaoFactory.getCategoryDao().read(categoryIdToRemove);
+				DaoFactory.getCategoryDao().delete(categoryToRemove);
 				
 				break;
 			case 17:
@@ -262,7 +267,7 @@ public class ShopApp {
 			System.out.printf("              AFFICHAGE PAR CATEGORIE    %n");
 			System.out.printf("                     %-10s               %n", category.getName());
 			System.out.printf("------------------------------------------------------------%n");
-			System.out.printf("%-15s | %-15s | %-15s | %-15s %n", COLUMN_ID, COLUMN_DESCRIPTION, COLUMN_PRICE);
+			System.out.printf("%-15s | %-15s | %-15s | %n", COLUMN_ID, COLUMN_DESCRIPTION, COLUMN_PRICE);
 			System.out.printf("------------------------------------------------------------%n");
 			business.readArticlesByCatId(id).forEach(a -> System.out.printf("%-15s | %-15s | %-15s | %-15s%n",
 					a.getId(), a.getDescription(), a.getName(), a.getPrice()));
