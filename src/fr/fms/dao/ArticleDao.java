@@ -27,11 +27,11 @@ public class ArticleDao implements Dao<Article> {
 		String str = "INSERT INTO T_Articles (Name, Description, Duration, Format, Price, IdCategory) VALUES (?,?,?,?,?,?);";	
 		try (PreparedStatement ps = connection.prepareStatement(str)){
 			ps.setString(1, obj.getName());
-			ps.setString(1, obj.getDescription());
-			ps.setInt(4, obj.getDuration());
-			ps.setString(2, obj.getFormat());
-			ps.setDouble(3, obj.getPrice());	
-			ps.setInt(4, obj.getCategory());
+			ps.setString(2, obj.getDescription());
+			ps.setInt(3, obj.getDuration());
+			ps.setString(4, obj.getFormat());
+			ps.setDouble(5, obj.getPrice());	
+			ps.setInt(6, obj.getCategory());
 			if( ps.executeUpdate() == 1)	return true;
 		} catch (SQLException e) {
 			logger.severe("pb sql sur la création d'un article " + e.getMessage());

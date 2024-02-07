@@ -107,7 +107,36 @@ public class ShopApp {
 				break;
 			case 12:
 				displayArticles();
+//				String name, String description, int duration, String format, double price
 //				System.out.println("12 : Ajouter une formation à la boutique");
+				System.out.println("Saisissez le nom de la nouvelle formation: ");
+				scan.nextLine();
+				String newCourseName = scan.nextLine();
+				System.out.println("Saisissez la description de la nouvelle formation: ");
+				String newCourseDescription = scan.nextLine();
+				System.out.println("Saisissez la durée de la nouvelle formation: ");
+				int newCourseDuration = scan.nextInt();
+				scan.nextLine();
+				System.out.println("Quel est le format de la nouvelle formation: ");
+				System.out.println("1 : Présentielle 2: Distancielle ");
+	
+				String newCourseFormat = "";
+				int newCourseFormatChoice = scan.nextInt();
+				scan.nextLine();
+		
+				switch (newCourseFormatChoice) {
+				case 1: newCourseFormat = "Présentielle";
+				break;
+				case 2 : newCourseFormat = "Distancielle";
+				}
+				System.out.println("Quel est le prix de la nouvelle formation: ");
+				double newCoursePrice = scan.nextDouble();
+				scan.nextLine();
+				
+				System.out.println("Quel est la catégorie de la nouvelle formation: ");
+				int newCourseCategory = scan.nextInt();
+				scan.nextLine();
+				DaoFactory.getArticleDao().create(new Article(newCourseName, newCourseDescription,newCourseDuration, newCourseFormat,newCoursePrice,newCourseCategory));
 				break;
 			case 13:
 				displayArticles();

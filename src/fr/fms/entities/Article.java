@@ -21,6 +21,15 @@ public class Article {
 		this.price = price;
 		this.category = category;
 	}
+	
+	public Article(String name, String description, int duration, String format, double price, int category) {
+		this.name = name;
+		this.description = description;
+		this.duration = duration;
+		this.format = format;
+		this.price = price;
+		this.category = category;
+	}
 
 	public Article(int id, String name, String description, int duration, String format, double price){
 		this.id = id;
