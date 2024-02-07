@@ -132,7 +132,11 @@ public class ShopApp {
 				displayCategories();
 //				System.out.println("16 : Supprimer une catégorie de formation");
 				System.out.println("Saisissez l'ID de la catégorie à supprimer: ");
-				String IdToRemove = scan.next();
+				int IdToRemove = scan.nextInt();
+				scan.nextLine();
+				Category catToRemove = DaoFactory.getCategoryDao().read(IdToRemove);
+				DaoFactory.getCategoryDao().delete(catToRemove);
+				
 				break;
 			case 17:
 				displayCategories();

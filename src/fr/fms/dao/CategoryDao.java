@@ -42,14 +42,20 @@ public class CategoryDao implements Dao<Category>{
 			ps.setInt(3, obj.getId());
 			if( ps.executeUpdate() == 1)	return true;
 		} catch (SQLException e) {
-			logger.severe("pb sql sur la mise à jour d'un article " + e.getMessage());
+			logger.severe("pb sql sur la mise à jour d'une catégorie " + e.getMessage());
 		} 	
 		return false;
 	}
 
 	@Override
 	public boolean delete(Category obj) {
-		// TODO Auto-generated method stub
+		try (Statement statement = connection.createStatement()){
+			String str = "DELETE FROM T_Categories where IdCategory=" + obj.getId() + ";";									
+			statement.executeUpdate(str);		
+			return true;
+		} catch (SQLException e) {
+			logger.severe("pb sql sur la suppression d'une catégorie " + e.getMessage());
+		} 	
 		return false;
 	}
 
