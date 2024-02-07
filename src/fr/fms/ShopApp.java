@@ -264,27 +264,40 @@ public class ShopApp {
 			
 			System.out.println(TEXT_GREEN + "Compte ADMINISTRATEUR : " + login);
 		System.out.println("Pour réaliser une action, tapez le code correspondant");
-			System.out.println("\n" + "Pour réaliser une action, tapez le code correspondant");
-			System.out.println("1 : Ajouter une formation au panier");
-			System.out.println("2 : Retirer une formation du panier");
-			System.out.println("3 : Afficher mon panier + total pour passer commande");
-			System.out.println("4 : Afficher toutes les formations");
-			System.out.println("5 : Afficher les formations en distancielles");
-			System.out.println("6 : Afficher les formations en présentielles");
-			System.out.println("7 : Rechercher une formation par mot clé");
-			System.out.println("8 : Afficher toutes les catégories en base");
-			System.out.println("9 : Afficher tous les formations d'une catégorie");
-			System.out.println("10 : Connexion(Deconnexion) à votre compte");
-			System.out.println("11 : Connexion(Deconnexion) compte ADMINISTRATION");
-			System.out.println("12 : Ajouter une formation à la boutique");
-			System.out.println("13 : Supprimer une formation de la boutique");
-			System.out.println("14 : Modifier une formation de la boutique");
-			System.out.println("15 : Ajouter une catégorie de formation");
-			System.out.println("16 : Supprimer une catégorie de formation");
-			System.out.println("17 : Modifier une catégorie de formation");
-			System.out.println("18 : Voir commandes toutes les commandes");
-			System.out.println("19 : Voir commandes d'un client");
-			System.out.println("20 : Sortir de l'application");
+		System.out.printf("%-2s : %-40s %-2s : %-40s%n", "1", "Ajouter une formation au panier", "12", "Ajouter une formation à la boutique");
+		System.out.printf("%-2s : %-40s %-2s : %-40s%n", "2", "Retirer une formation du panier", "13", "Supprimer une formation de la boutique");
+		System.out.printf("%-2s : %-40s %-2s : %-40s%n", "3", "Afficher mon panier + total", "14", "Modifier une formation de la boutique");
+		System.out.printf("%-2s : %-40s %-2s : %-40s%n", "4", "Afficher toutes les formations", "15", "Ajouter une catégorie de formation");
+		System.out.printf("%-2s : %-40s %-2s : %-40s%n", "5", "Afficher les formations en distancielles", "16", "Supprimer une catégorie de formation");
+		System.out.printf("%-2s : %-40s %-2s : %-40s%n", "6", "Afficher les formations en présentielles", "17", "Modifier une catégorie de formation");
+		System.out.printf("%-2s : %-40s %-2s : %-40s%n", "7", "Rechercher une formation par mot clé", "18", "Voir toutes les commandes");
+		System.out.printf("%-2s : %-40s %-2s : %-40s%n", "8", "Afficher toutes les catégories en base", "19", "Voir commandes d'un client");
+		System.out.printf("%-2s   %-40s %-2s : %-40s%n", "", "", "20", "Sortir de l'application");
+
+			
+//			System.out.println(TEXT_GREEN + "Compte ADMINISTRATEUR : " + login);
+//		System.out.println("Pour réaliser une action, tapez le code correspondant");
+//			System.out.println("\n" + "Pour réaliser une action, tapez le code correspondant");
+//			System.out.println("1 : Ajouter une formation au panier");
+//			System.out.println("2 : Retirer une formation du panier");
+//			System.out.println("3 : Afficher mon panier + total pour passer commande");
+//			System.out.println("4 : Afficher toutes les formations");
+//			System.out.println("5 : Afficher les formations en distancielles");
+//			System.out.println("6 : Afficher les formations en présentielles");
+//			System.out.println("7 : Rechercher une formation par mot clé");
+//			System.out.println("8 : Afficher toutes les catégories en base");
+//			System.out.println("9 : Afficher tous les formations d'une catégorie");
+//			System.out.println("10 : Connexion(Deconnexion) à votre compte");
+//			System.out.println("11 : Connexion(Deconnexion) compte ADMINISTRATION");
+//			System.out.println("12 : Ajouter une formation à la boutique");
+//			System.out.println("13 : Supprimer une formation de la boutique");
+//			System.out.println("14 : Modifier une formation de la boutique");
+//			System.out.println("15 : Ajouter une catégorie de formation");
+//			System.out.println("16 : Supprimer une catégorie de formation");
+//			System.out.println("17 : Modifier une catégorie de formation");
+//			System.out.println("18 : Voir commandes toutes les commandes");
+//			System.out.println("19 : Voir commandes d'un client");
+//			System.out.println("20 : Sortir de l'application");
 	}
 
 	/**
