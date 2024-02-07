@@ -11,14 +11,15 @@ USE Shop;
 CREATE TABLE T_Users (
 	IdUser				int(4)		PRIMARY KEY AUTO_INCREMENT,
 	Login				varchar(20)	NOT NULL UNIQUE,
-	Password			varchar(20)	NOT NULL
+	Password			varchar(20)	NOT NULL,
+	Role					varchar(20) NOT NULL
 ) ENGINE = InnoDB;
 
-INSERT INTO T_Users (IdUser, Login, Password) VALUES ( 1, 'Nathan' ,	'Drake' );
-INSERT INTO T_Users (IdUser, Login, Password) VALUES ( 2, 'Lara',	'Croft' );
-INSERT INTO T_Users (IdUser, Login, Password) VALUES ( 3, 'Geralt' ,	'Deriv' );
-INSERT INTO T_Users (IdUser, Login, Password) VALUES ( 4, 'Solid'   ,	'Snake' );
-INSERT INTO T_Users (IdUser, Login, Password) VALUES ( 5, 'Samus'     ,	'Aran' );
+INSERT INTO T_Users (IdUser, Login, Password, Role) VALUES ( 1, 'Nathan' ,	'Drake','User' );
+INSERT INTO T_Users (IdUser, Login, Password, Role) VALUES ( 2, 'Lara',	'Croft','Admin'  );
+INSERT INTO T_Users (IdUser, Login, Password, Role) VALUES ( 3, 'Geralt' ,	'Deriv', 'User' );
+INSERT INTO T_Users (IdUser, Login, Password, Role) VALUES ( 4, 'Solid'   ,	'Snake' ,'User' );
+INSERT INTO T_Users (IdUser, Login, Password, Role) VALUES ( 5, 'Samus'     ,	'Aran' ,'User' );
 
 SELECT * FROM T_Users;
 

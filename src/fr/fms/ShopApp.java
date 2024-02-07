@@ -5,9 +5,12 @@ import java.util.Scanner;
 import fr.fms.authentication.Authenticate;
 import fr.fms.business.IBusinessImpl;
 import fr.fms.dao.ArticleDao;
+import fr.fms.dao.DaoFactory;
+import fr.fms.dao.UserDao;
 import fr.fms.entities.Article;
 import fr.fms.entities.Category;
 import fr.fms.entities.Customer;
+import fr.fms.entities.User;
 
 /**
  * Application console de vente de formation en base permettant d'exploiter une
@@ -25,6 +28,7 @@ public class ShopApp {
 	private static Authenticate authenticate = new Authenticate();
 
 	public static final String TEXT_BLUE = "\u001B[36m";
+	public static final String TEXT_GREEN = "\u001B[32m";
 	public static final String TEXT_RESET = "\u001B[0m";
 	private static final String COLUMN_ID = "ID";
 	private static final String COLUMN_NAME = "NOM";
@@ -34,52 +38,104 @@ public class ShopApp {
 	private static final String COLUMN_PRICE = "PRIX/€";
 
 	private static int idUser = 0;
+	private static String userRole = null;
 	private static String login = null;
 
 	public static void main(String[] args) {
+//		UserDao userDao = new UserDao();
+//		userDao.findUserByRole();
 		System.out.println("Bonjour et bienvenu sur FMS FORMATION, voici la liste de nos formations \n");
+		
 		displayArticles();
 		int choice = 0;
-		while (choice != 11) {
-			displayMenu();
+		while (choice != 19) {
+		
+		if (userRole != null) {
+			displayAdminMenu() ;
+		} else {
+			 displayMenu();
+		}
 			choice = scanInt();
 			switch (choice) {
 			case 1:
+//				System.out.println("1 : Ajouter une formation au panier");
 				addArticle();
 				break;
 			case 2:
+//				System.out.println("2 : Retirer une formation du panier");
 				removeArticle();
 				break;
 			case 3:
+//				System.out.println("3 : Afficher mon panier + total pour passer commande");
 				displayCart(true);
 				break;
 			case 4:
+//				System.out.println("4 : Afficher toutes les formations");
 				displayArticles();
 				break;
 			case 5:
+//				System.out.println("5 : Afficher les formations en distancielles");
 				displayRemote();
 				break;
 			case 6:
+//				System.out.println("6 : Afficher les formations en présentielles");
 				displayPresent();
 				break;
 			case 7:
+//				System.out.println("7 : Rechercher une formation par mot clé");
 				displayArticlesByKeyWord();
 				break;
-				
 			case 8:
+//				System.out.println("8 : Afficher toutes les catégories en base");
 				displayCategories();
 				break;
 			case 9:
+//				System.out.println("9 : Afficher tous les formations d'une catégorie");
 				displayArticlesByCategoryId();
 				break;
 			case 10:
+//				System.out.println("10 : Connexion(Deconnexion) à votre compte");
 				connection();
 				break;
 			case 11:
+//				System.out.println("11 : Connexion(Deconnexion) compte ADMINISTRATION");
+				try {
+				adminConnection();
+				}catch (Exception e) {
+					System.out.println("Accès refusé");
+				}
+				break;
+			case 12:
+				displayArticles();
+//				System.out.println("12 : Ajouter une formation à la boutique");
+				break;
+			case 13:
+				displayArticles();
+//				System.out.println("13 : Supprimer une formation de la boutique");
+				break;
+			case 14:
+				displayArticles();
+//				System.out.println("14 : Modifier une formation de la boutique");
+				System.out.println("Saisissez l'ID de la formation à modifier: ");
+				break;
+			case 15:
+				displayCategories();
+//				System.out.println("15 : Ajouter une catégorie de formation");
+				
+				break;
+			case 16:
+				displayCategories();
+//				System.out.println("16 : Supprimer une catégorie de formation");
+				break;
+			case 17:
+				displayCategories();
+//				System.out.println("17 : Modifier une catégorie de formation");
+				break;
+			case 18:
 				System.out.println("à bientôt dans notre boutique :)");
 				break;
 			default:
-				System.out.println("veuillez saisir une valeur entre 1 et 11");
+				System.out.println("veuillez saisir une valeur entre 1 et 12");
 			}
 		}
 	}
@@ -91,7 +147,7 @@ public class ShopApp {
 		if (login != null)
 			System.out.print(TEXT_BLUE + "Compte : " + login);
 		System.out.println("\n" + "Pour réaliser une action, tapez le code correspondant");
-		System.out.println("1 : Ajouter une foramtion au panier");
+		System.out.println("1 : Ajouter une formation au panier");
 		System.out.println("2 : Retirer une formation du panier");
 		System.out.println("3 : Afficher mon panier + total pour passer commande");
 		System.out.println("4 : Afficher toutes les formations");
@@ -101,7 +157,29 @@ public class ShopApp {
 		System.out.println("8 : Afficher toutes les catégories en base");
 		System.out.println("9 : Afficher tous les formations d'une catégorie");
 		System.out.println("10 : Connexion(Deconnexion) à votre compte");
-		System.out.println("11 : Sortir de l'application");
+		System.out.println("11 : Connexion(Deconnexion) compte ADMINISTRATION");
+		System.out.println("12 : Sortir de l'application");
+	}
+	
+	/**
+	 * Méthode qui affiche le menu principale
+	 */
+	public static void displayAdminMenu() {
+		if (login != null)
+			System.out.println(TEXT_GREEN + "Compte ADMINISTRATEUR : " + login);
+		System.out.println("Pour réaliser une action, tapez le code correspondant");
+		System.out.printf("%-2s : %-60s %-2s : %-40s%n", "1", "Ajouter une formation au panier", "12", "Ajouter une formation à la boutique");
+		System.out.printf("%-2s : %-60s %-2s : %-40s%n", "2", "Retirer une formation du panier", "13", "Supprimer une formation de la boutique");
+		System.out.printf("%-2s : %-60s %-2s : %-40s%n", "3", "Afficher mon panier + total pour passer commande", "14", "Modifier une formation de la boutique");
+		System.out.printf("%-2s : %-60s %-2s : %-40s%n", "4", "Afficher toutes les formations", "15", "Ajouter une catégorie de formation");
+		System.out.printf("%-2s : %-60s %-2s : %-40s%n", "5", "Afficher les formations en distancielles", "16", "Supprimer une catégorie de formation");
+		System.out.printf("%-2s : %-60s %-2s : %-40s%n", "6", "Afficher les formations en présentielles", "17", "Modifier une catégorie de formation");
+		System.out.printf("%-2s : %-60s %-2s : %-40s%n", "7", "Rechercher une formation par mot clé", "18", "ADMINISTRATION");
+		System.out.printf("%-2s : %-60s %-2s : %-40s%n", "8", "Afficher toutes les catégories en base", "19", "Sortir de l'application");
+		System.out.printf("%-2s : %-60s%n", "9", "Afficher tous les formations d'une catégorie");
+		System.out.printf("%-2s : %-60s%n", "10", "Connexion(Deconnexion) à votre compte");
+		System.out.printf("%-2s : %-60s%n", "11", "Connexion(Deconnexion) compte ADMINISTRATION");
+
 	}
 
 	/**
@@ -109,15 +187,19 @@ public class ShopApp {
 	 */
 	public static void displayArticles() {
 		// En-têtes des colonnes
-		System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
-		System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n",  COLUMN_ID, COLUMN_NAME,COLUMN_DESCRIPTION, COLUMN_DURATION,COLUMN_FORMAT,COLUMN_PRICE);
-		System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+		System.out.println(
+				"------------------------------------------------------------------------------------------------------------------------------------");
+		System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n", COLUMN_ID, COLUMN_NAME,
+				COLUMN_DESCRIPTION, COLUMN_DURATION, COLUMN_FORMAT, COLUMN_PRICE);
+		System.out.println(
+				"------------------------------------------------------------------------------------------------------------------------------------");
 		// Lignes des articles
 		business.readArticles().forEach(article -> {
 			System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n", article.getId(), article.getName(),
 					article.getDescription(), article.getDuration(), article.getFormat(), article.getPrice());
 		});
-		System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+		System.out.println(
+				"------------------------------------------------------------------------------------------------------------------------------------");
 	}
 
 	/**
@@ -145,30 +227,36 @@ public class ShopApp {
 	private static void displayRemote() {
 		ArrayList<Article> articles = business.readRemoteArticles();
 		if (articles != null) {
-			System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
-			System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n", COLUMN_ID, COLUMN_NAME,COLUMN_DESCRIPTION, COLUMN_DURATION,COLUMN_FORMAT,COLUMN_PRICE);
-			System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
-			articles.forEach(a -> System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n",
-					a.getId(), a.getName(), a.getDescription(), a.getDuration() ,a.getFormat(), a.getPrice()));
+			System.out.println(
+					"------------------------------------------------------------------------------------------------------------------------------------");
+			System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n", COLUMN_ID, COLUMN_NAME,
+					COLUMN_DESCRIPTION, COLUMN_DURATION, COLUMN_FORMAT, COLUMN_PRICE);
+			System.out.println(
+					"------------------------------------------------------------------------------------------------------------------------------------");
+			articles.forEach(a -> System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n", a.getId(),
+					a.getName(), a.getDescription(), a.getDuration(), a.getFormat(), a.getPrice()));
 		} else
 			System.out.println("aucune formation trouvée !");
 	}
-	
+
 	/**
 	 * Méthode qui affiche tous les articles en remote
 	 */
 	private static void displayPresent() {
 		ArrayList<Article> articles = business.readPresentArticles();
 		if (articles != null) {
-			System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
-			System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n", COLUMN_ID, COLUMN_NAME,COLUMN_DESCRIPTION, COLUMN_DURATION,COLUMN_FORMAT,COLUMN_PRICE);
-			System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
-			articles.forEach(a -> System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n",
-					a.getId(), a.getName(), a.getDescription(), a.getDuration() ,a.getFormat(), a.getPrice()));
+			System.out.println(
+					"------------------------------------------------------------------------------------------------------------------------------------");
+			System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n", COLUMN_ID, COLUMN_NAME,
+					COLUMN_DESCRIPTION, COLUMN_DURATION, COLUMN_FORMAT, COLUMN_PRICE);
+			System.out.println(
+					"------------------------------------------------------------------------------------------------------------------------------------");
+			articles.forEach(a -> System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n", a.getId(),
+					a.getName(), a.getDescription(), a.getDuration(), a.getFormat(), a.getPrice()));
 		} else
 			System.out.println("aucune formation trouvée !");
 	}
-	
+
 	/**
 	 * Méthode qui affiche tous les articles par catégorie en utilisant printf
 	 */
@@ -177,22 +265,30 @@ public class ShopApp {
 		String word = scan.next();
 		ArrayList<Article> articles = business.readAllByKeyWord(word);
 		if (articles != null) {
-			System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
-			System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n", COLUMN_ID, COLUMN_NAME,COLUMN_DESCRIPTION, COLUMN_DURATION,COLUMN_FORMAT,COLUMN_PRICE);
-			System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
-			articles.forEach(a -> System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n",
-					a.getId(), a.getName(), a.getDescription(), a.getDuration() ,a.getFormat(), a.getPrice()));
+			System.out.println(
+					"------------------------------------------------------------------------------------------------------------------------------------");
+			System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n", COLUMN_ID, COLUMN_NAME,
+					COLUMN_DESCRIPTION, COLUMN_DURATION, COLUMN_FORMAT, COLUMN_PRICE);
+			System.out.println(
+					"------------------------------------------------------------------------------------------------------------------------------------");
+			articles.forEach(a -> System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n", a.getId(),
+					a.getName(), a.getDescription(), a.getDuration(), a.getFormat(), a.getPrice()));
 		} else
 			System.out.println("aucune formation trouvée !");
 	}
-	
+
 	/**
 	 * Méthode qui affiche toutes les catégories
 	 */
 	private static void displayCategories() {
-		System.out.println(Category.centerString(COLUMN_ID) + Category.centerString(COLUMN_NAME)
-				+ Category.centerString(COLUMN_DESCRIPTION));
-		business.readCategories().forEach(System.out::println);
+//		System.out.println(Category.centerString(COLUMN_ID) + Category.centerString(COLUMN_NAME)
+//				+ Category.centerString(COLUMN_DESCRIPTION));
+		System.out.printf("              AFFICHAGE PAR CATEGORIE    %n");
+		System.out.printf("----------------------------------------------------------------------------------------%n");
+		System.out.printf("%-15s | %-50s | %-15s | %n", COLUMN_ID, COLUMN_DESCRIPTION, COLUMN_NAME);
+		System.out.printf("----------------------------------------------------------------------------------------%n");
+		business.readCategories().forEach(a -> System.out.printf("%-15s | %-50s | %-15s %n",
+				a.getId(), a.getDescription(), a.getName()));
 	}
 
 	/**
@@ -339,6 +435,50 @@ public class ShopApp {
 			}
 		}
 	}
+
+	/**
+	 * Méthode qui réalise la connexion/deconnexion d'un utilisateur si
+	 * l'utilisateur n'existe pas, il lui est proposé d'en créer un
+	 */
+	private static void adminConnection() {
+		UserDao userDao = new UserDao();
+		if (login != null) {
+			System.out.println("Souhaitez vous vous déconnecter ? Oui/Non");
+			String response = scan.next();
+			if (response.equalsIgnoreCase("Oui")) {
+				System.out.println("A bientôt " + login + TEXT_RESET);
+				login = null;
+				idUser = 0;
+				userRole = null;
+			}
+		} else {
+			System.out.println("saisissez votre login : ");
+			String log = scan.next();
+			System.out.println("saisissez votre password : ");
+			String pwd = scan.next();
+			
+			int id = authenticate.existUser(log, pwd);
+			User admin = userDao.read(id);
+			userRole = admin.getRole();
+			if ((id > 0) && (userRole.equals("Admin"))) {
+				login = log;
+				idUser = id;
+		
+				System.out.print(TEXT_GREEN);
+			} else {
+				System.out.println("accès non autorisé");
+			}
+//			if (role.equals("Admin")) {
+//				login = log;
+//				userRole = role;
+//				System.out.print(TEXT_RED);
+//			} else {
+//				System.out.println("login ou password incorrect");
+//
+//				}
+			}
+		}
+	
 
 	/**
 	 * Méthode qui ajoute un nouvel utilisateur en base

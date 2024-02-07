@@ -24,6 +24,18 @@ public class Authenticate {
 	}
 	
 	/**
+	 * méthode qui vérifie si login et pwd correspond à un ADMIN en base
+	 * @param log
+	 * @param pwd
+	 * @return id de l'ADMIN, 0 si non trouvé
+	 */
+	public String existAdmin(String log, String pwd) {
+		User user = ((UserDao)userDao).findUserByCredentials(log,pwd);
+		if(user != null )	return user.getRole();
+		return "Not an admin";
+	}
+	
+	/**
 	 * méthode qui vérifie si login correspond à un utilisateur en base
 	 * @param log
 	 * @return id de l'utilisateur, 0 si non trouvé

@@ -46,7 +46,7 @@ public class UserDao implements Dao<User> {
 				String str = "SELECT * FROM T_Users where IdUser=" + id + ";";									
 				ResultSet rs = statement.executeQuery(str);
 				if(rs.next()) 
-					return new User(rs.getInt(1) , rs.getString(2) , rs.getString(3));
+					return new User(rs.getInt(1) , rs.getString(2) , rs.getString(3), rs.getString(4));
 		} catch (SQLException e) {
 			logger.severe("pb sql sur la lecture d'un user " + e.getMessage());
 		} 	
@@ -138,6 +138,25 @@ public class UserDao implements Dao<User> {
 		String str = "SELECT * FROM T_Users where Login=?;";
 		try (PreparedStatement ps = connection.prepareStatement(str)){
 			ps.setString(1, login);									
+			try (ResultSet rs = ps.executeQuery()){
+				if(rs.next()) 
+					return new User(rs.getInt(1) , rs.getString(2) , rs.getString(3));
+				}
+		} catch (SQLException e) {
+			logger.severe("pb sql sur renvoi d'un utilisateur à partir de son login ");
+		} 	
+		return null;
+	}
+	
+	/**
+	 * Méthode renvoi un utilisateur à partir de son login
+	 * @param login
+	 * @return user
+	 */
+	public User findUserByRole() {
+		String str = "SELECT * FROM T_Users where Role=?;";
+		try (PreparedStatement ps = connection.prepareStatement(str)){
+			ps.setString(1, "Admin");									
 			try (ResultSet rs = ps.executeQuery()){
 				if(rs.next()) 
 					return new User(rs.getInt(1) , rs.getString(2) , rs.getString(3));
