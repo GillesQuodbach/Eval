@@ -1,5 +1,6 @@
 package fr.fms.dao;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,7 +10,14 @@ public class CategoryDao implements Dao<Category>{
 
 	@Override
 	public boolean create(Category obj) {
-		// TODO Auto-generated method stub
+		String str = "INSERT INTO T_Categories (CatName, Description) VALUES (?,?);";	
+		try (PreparedStatement ps = connection.prepareStatement(str)){
+			ps.setString(1, obj.getName());
+			ps.setString(2, obj.getDescription());
+			if( ps.executeUpdate() == 1)	return true;
+		} catch (SQLException e) {
+			logger.severe("pb sql sur la création d'une catégorie " + e.getMessage());
+		} 	
 		return false;
 	}
 

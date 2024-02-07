@@ -120,12 +120,19 @@ public class ShopApp {
 				break;
 			case 15:
 				displayCategories();
+				System.out.println("Saisissez le nom de la nouvelle catégorie: ");
+				String newCategoryName = scan.next();
+				System.out.println("Saisissez la description de la nouvelle catégorie: ");
+				String newCategoryDescription = scan.next();
+				DaoFactory.getCategoryDao().create(new Category(newCategoryName, newCategoryDescription));
 //				System.out.println("15 : Ajouter une catégorie de formation");
 				
 				break;
 			case 16:
 				displayCategories();
 //				System.out.println("16 : Supprimer une catégorie de formation");
+				System.out.println("Saisissez l'ID de la catégorie à supprimer: ");
+				String IdToRemove = scan.next();
 				break;
 			case 17:
 				displayCategories();
@@ -453,9 +460,11 @@ public class ShopApp {
 			}
 		} else {
 			System.out.println("saisissez votre login : ");
-			String log = scan.next();
+//			String log = scan.next();
+			String log = "Lara";
 			System.out.println("saisissez votre password : ");
-			String pwd = scan.next();
+//			String pwd = scan.next();
+			String pwd = "Croft";
 			
 			int id = authenticate.existUser(log, pwd);
 			User admin = userDao.read(id);
