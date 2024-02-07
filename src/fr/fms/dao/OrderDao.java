@@ -5,7 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
+import fr.fms.entities.Article;
 import fr.fms.entities.Order;
 
 public class OrderDao implements Dao<Order> {
@@ -49,7 +51,22 @@ public class OrderDao implements Dao<Order> {
 
 	@Override
 	public ArrayList<Order> readAll() {
-		// TODO Auto-generated method stub
-		return null;
+//		int idOrder, double amount, Date date, int idCustomer
+		ArrayList<Order> orders = new ArrayList<Order>();
+		String strSql = "SELECT * FROM T_Orders";		
+		try(Statement statement = connection.createStatement()){
+			try(ResultSet resultSet = statement.executeQuery(strSql)){ 			
+				while(resultSet.next()) {
+					int rsId = resultSet.getInt(1);	
+					double rsAmount = resultSet.getDouble(2);
+					Date rsDate = resultSet.getDate(3);
+					int rsIdCustomer = resultSet.getInt(4);
+					orders.add((new Order(rsId,rsAmount,rsDate,rsIdCustomer)));						
+				}	
+			}
+		} catch (SQLException e) {
+			logger.severe("pb sql sur revoi de tous articles " + e.getMessage());
+		}	
+		return orders;
 	}
 }

@@ -36,6 +36,9 @@ public class ShopApp {
 	private static final String COLUMN_DURATION = "DUREE/JOUR";
 	private static final String COLUMN_FORMAT = "FORMAT";
 	private static final String COLUMN_PRICE = "PRIX/€";
+	private static final String COLUMN_ORDERID = "Id Cmde";
+	private static final String COLUMN_ORDERDATE = "Date";
+	private static final String COLUMN_ORDERCUSTOMERID = "Id Client";
 
 	private static int idUser = 0;
 	private static String userRole = null;
@@ -216,6 +219,14 @@ public class ShopApp {
 				DaoFactory.getCategoryDao().update(new Category(idCategoryToUpdate,categoryNameToUpDate, categoryDescriptionToUpDate));
 				break;
 			case 18:
+//				System.out.println("18 :Lire toutes les commandes");
+		displayOrders();
+				break;
+			case 19:
+//				System.out.println("18 :Lire les commandes d'un client");
+		displayOrders();
+				break;
+			case 20:
 				System.out.println("à bientôt dans notre boutique :)");
 				break;
 			default:
@@ -242,7 +253,7 @@ public class ShopApp {
 		System.out.println("9 : Afficher tous les formations d'une catégorie");
 		System.out.println("10 : Connexion(Deconnexion) à votre compte");
 		System.out.println("11 : Connexion(Deconnexion) compte ADMINISTRATION");
-		System.out.println("12 : Sortir de l'application");
+		System.out.println("20 : Sortir de l'application");
 	}
 	
 	/**
@@ -250,20 +261,30 @@ public class ShopApp {
 	 */
 	public static void displayAdminMenu() {
 		if (login != null)
+			
 			System.out.println(TEXT_GREEN + "Compte ADMINISTRATEUR : " + login);
 		System.out.println("Pour réaliser une action, tapez le code correspondant");
-		System.out.printf("%-2s : %-60s %-2s : %-40s%n", "1", "Ajouter une formation au panier", "12", "Ajouter une formation à la boutique");
-		System.out.printf("%-2s : %-60s %-2s : %-40s%n", "2", "Retirer une formation du panier", "13", "Supprimer une formation de la boutique");
-		System.out.printf("%-2s : %-60s %-2s : %-40s%n", "3", "Afficher mon panier + total pour passer commande", "14", "Modifier une formation de la boutique");
-		System.out.printf("%-2s : %-60s %-2s : %-40s%n", "4", "Afficher toutes les formations", "15", "Ajouter une catégorie de formation");
-		System.out.printf("%-2s : %-60s %-2s : %-40s%n", "5", "Afficher les formations en distancielles", "16", "Supprimer une catégorie de formation");
-		System.out.printf("%-2s : %-60s %-2s : %-40s%n", "6", "Afficher les formations en présentielles", "17", "Modifier une catégorie de formation");
-		System.out.printf("%-2s : %-60s %-2s : %-40s%n", "7", "Rechercher une formation par mot clé", "18", "ADMINISTRATION");
-		System.out.printf("%-2s : %-60s %-2s : %-40s%n", "8", "Afficher toutes les catégories en base", "19", "Sortir de l'application");
-		System.out.printf("%-2s : %-60s%n", "9", "Afficher tous les formations d'une catégorie");
-		System.out.printf("%-2s : %-60s%n", "10", "Connexion(Deconnexion) à votre compte");
-		System.out.printf("%-2s : %-60s%n", "11", "Connexion(Deconnexion) compte ADMINISTRATION");
-
+			System.out.println("\n" + "Pour réaliser une action, tapez le code correspondant");
+			System.out.println("1 : Ajouter une formation au panier");
+			System.out.println("2 : Retirer une formation du panier");
+			System.out.println("3 : Afficher mon panier + total pour passer commande");
+			System.out.println("4 : Afficher toutes les formations");
+			System.out.println("5 : Afficher les formations en distancielles");
+			System.out.println("6 : Afficher les formations en présentielles");
+			System.out.println("7 : Rechercher une formation par mot clé");
+			System.out.println("8 : Afficher toutes les catégories en base");
+			System.out.println("9 : Afficher tous les formations d'une catégorie");
+			System.out.println("10 : Connexion(Deconnexion) à votre compte");
+			System.out.println("11 : Connexion(Deconnexion) compte ADMINISTRATION");
+			System.out.println("12 : Ajouter une formation à la boutique");
+			System.out.println("13 : Supprimer une formation de la boutique");
+			System.out.println("14 : Modifier une formation de la boutique");
+			System.out.println("15 : Ajouter une catégorie de formation");
+			System.out.println("16 : Supprimer une catégorie de formation");
+			System.out.println("17 : Modifier une catégorie de formation");
+			System.out.println("18 : Voir commandes toutes les commandes");
+			System.out.println("19 : Voir commandes d'un client");
+			System.out.println("20 : Sortir de l'application");
 	}
 
 	/**
@@ -424,6 +445,25 @@ public class ShopApp {
 		}
 	}
 
+	/**
+	 * Méthode qui affiche toute les commandes en base
+	 */
+//	rsId,rsAmount,rsDate,rsIdCustomer
+	public static void displayOrders() {
+		// En-têtes des colonnes
+		System.out.println(
+				"------------------------------------------------------------------------------------------------------------------------------------");
+		System.out.printf("%-5s | %-30s | %-40s | %-15s %n", COLUMN_ORDERID, COLUMN_PRICE, COLUMN_ORDERDATE, COLUMN_ORDERCUSTOMERID);
+		System.out.println(
+				"------------------------------------------------------------------------------------------------------------------------------------");
+		// Lignes des articles
+		business.readAllOrders().forEach(order -> {
+			System.out.printf("%-5s | %-30s | %-40s | %-15s %n", order.getIdOrder(), order.getAmount(), order.getDate(), order.getIdCustomer());
+		});
+		System.out.println(
+				"------------------------------------------------------------------------------------------------------------------------------------");
+	}
+	
 	/**
 	 * Méthode qui passe la commande, l'utilisateur doit être connecté si c'est le
 	 * cas, l'utilisateur sera invité à associé un client à sa commande si le client

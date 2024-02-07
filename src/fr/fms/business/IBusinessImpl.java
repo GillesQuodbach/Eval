@@ -102,6 +102,11 @@ public class IBusinessImpl implements IBusiness {
 	public ArrayList<Article> readPresentArticles() {
 		return ((ArticleDao) articleDao).readAllPresentArticles();
 	}
+	
+
+	public ArrayList<Order> readAllOrders() {
+		return orderDao.readAll();
+	}
 	/**
 	 * renvoi le total de la commande en cours
 	 * @return total
