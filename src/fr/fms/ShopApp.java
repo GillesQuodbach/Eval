@@ -137,6 +137,15 @@ public class ShopApp {
 			case 17:
 				displayCategories();
 //				System.out.println("17 : Modifier une catégorie de formation");
+				System.out.println("Saisissez l'ID de catégorie à modifier: ");
+				int idToUpdate = scan.nextInt();
+				scan.nextLine();
+				System.out.println();
+				System.out.println("Saisissez le nouveau nom de la catégorie: ");
+				String nameToUpDate = scan.nextLine();
+				System.out.println("Saisissez la nouvelle descritpion de la catégorie: ");
+				String descriptionToUpDate = scan.nextLine();
+				DaoFactory.getCategoryDao().update(new Category(idToUpdate,nameToUpDate, descriptionToUpDate));
 				break;
 			case 18:
 				System.out.println("à bientôt dans notre boutique :)");

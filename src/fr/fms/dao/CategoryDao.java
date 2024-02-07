@@ -35,7 +35,15 @@ public class CategoryDao implements Dao<Category>{
 
 	@Override
 	public boolean update(Category obj) {
-		// TODO Auto-generated method stub
+		String str = "UPDATE T_Categories set CatName=? , Description=? where IdCategory=?;";
+		try (PreparedStatement ps = connection.prepareStatement(str)){				
+			ps.setString(1, obj.getName());
+			ps.setString(2, obj.getDescription());
+			ps.setInt(3, obj.getId());
+			if( ps.executeUpdate() == 1)	return true;
+		} catch (SQLException e) {
+			logger.severe("pb sql sur la mise à jour d'un article " + e.getMessage());
+		} 	
 		return false;
 	}
 
