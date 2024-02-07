@@ -150,7 +150,37 @@ public class ShopApp {
 			case 14:
 				displayArticles();
 //				System.out.println("14 : Modifier une formation de la boutique");
+//				"UPDATE T_Articles set Name=? , Description=? , Duration=? , Format=?  Price=? , IdCategory=? where idArticle=?;";
 				System.out.println("Saisissez l'ID de la formation à modifier: ");
+				int articleIdToUpdate = scan.nextInt();
+				scan.nextLine();
+				System.out.println();
+				System.out.println("Saisissez le nouveau nom de la formation: ");
+				String articleNameToUpDate = scan.nextLine();
+				System.out.println("Saisissez la nouvelle descritpion de la formation: ");
+				String articleDescriptionToUpDate = scan.nextLine();
+				System.out.println("Saisissez la nouvelle durée de la formation: ");
+				int articleDurationToUpDate = scan.nextInt();
+				scan.nextLine();
+				System.out.println("Saisissez le nouveau format de la formation: ");
+				System.out.println("1 : Présentielle 2: Distancielle ");
+
+				String courseFormatToUpdate = "";
+				int updatedCourseFormatChoice = scan.nextInt();
+				scan.nextLine();
+				switch (updatedCourseFormatChoice) {
+				case 1: courseFormatToUpdate = "Présentielle";
+				break;
+				case 2 : courseFormatToUpdate = "Distancielle";
+				}
+
+				System.out.println("Quel est le prix de la nouvelle formation: ");
+				double newUpdatedCoursePrice = scan.nextDouble();
+				scan.nextLine();
+				System.out.println("Quel est la catégorie de la nouvelle formation: ");
+				int newUpdatedCourseCategory = scan.nextInt();
+				scan.nextLine();
+				DaoFactory.getArticleDao().update(new Article(articleIdToUpdate,articleNameToUpDate, articleDescriptionToUpDate,articleDurationToUpDate,courseFormatToUpdate,newUpdatedCoursePrice,newUpdatedCourseCategory));
 				break;
 			case 15:
 				displayCategories();
@@ -176,14 +206,14 @@ public class ShopApp {
 				displayCategories();
 //				System.out.println("17 : Modifier une catégorie de formation");
 				System.out.println("Saisissez l'ID de catégorie à modifier: ");
-				int idToUpdate = scan.nextInt();
+				int idCategoryToUpdate = scan.nextInt();
 				scan.nextLine();
 				System.out.println();
 				System.out.println("Saisissez le nouveau nom de la catégorie: ");
-				String nameToUpDate = scan.nextLine();
+				String categoryNameToUpDate = scan.nextLine();
 				System.out.println("Saisissez la nouvelle descritpion de la catégorie: ");
-				String descriptionToUpDate = scan.nextLine();
-				DaoFactory.getCategoryDao().update(new Category(idToUpdate,nameToUpDate, descriptionToUpDate));
+				String categoryDescriptionToUpDate = scan.nextLine();
+				DaoFactory.getCategoryDao().update(new Category(idCategoryToUpdate,categoryNameToUpDate, categoryDescriptionToUpDate));
 				break;
 			case 18:
 				System.out.println("à bientôt dans notre boutique :)");
@@ -266,11 +296,11 @@ public class ShopApp {
 		if (category != null) {
 			System.out.printf("              AFFICHAGE PAR CATEGORIE    %n");
 			System.out.printf("                     %-10s               %n", category.getName());
-			System.out.printf("------------------------------------------------------------%n");
-			System.out.printf("%-15s | %-15s | %-15s | %n", COLUMN_ID, COLUMN_DESCRIPTION, COLUMN_PRICE);
-			System.out.printf("------------------------------------------------------------%n");
-			business.readArticlesByCatId(id).forEach(a -> System.out.printf("%-15s | %-15s | %-15s | %-15s%n",
-					a.getId(), a.getDescription(), a.getName(), a.getPrice()));
+			System.out.printf("---------------------------------------------------------------------------------------------------------------%n");
+			System.out.printf("%-15s | %-40s | %-40s | %-15s %n", COLUMN_ID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_PRICE);
+			System.out.printf("---------------------------------------------------------------------------------------------------------------%n");
+			business.readArticlesByCatId(id).forEach(a -> System.out.printf("%-15s | %-40s | %-40s | %-15s %n",
+					a.getId(), a.getName() ,a.getDescription(), a.getPrice()));
 		} else
 			System.out.println("cette catégorie n'existe pas !");
 	}

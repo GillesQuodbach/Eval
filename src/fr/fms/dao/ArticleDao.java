@@ -65,7 +65,7 @@ public class ArticleDao implements Dao<Article> {
 
 	@Override
 	public boolean update(Article obj) {
-		String str = "UPDATE T_Articles set Name=? , Description=? , Duration=? , Format=?  Price=? , IdCategory=? where idArticle=?;";
+		String str = "UPDATE T_Articles set Name=? , Description=? , Duration=? , Format=?,  Price=? , IdCategory=? where idArticle=?;";
 		try (PreparedStatement ps = connection.prepareStatement(str)){				
 			ps.setString(1, obj.getName());
 			ps.setString(2, obj.getDescription());
