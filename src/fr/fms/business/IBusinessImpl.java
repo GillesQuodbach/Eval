@@ -10,6 +10,7 @@ import java.util.HashMap;
 import fr.fms.dao.ArticleDao;
 import fr.fms.dao.Dao;
 import fr.fms.dao.DaoFactory;
+import fr.fms.dao.OrderDao;
 import fr.fms.entities.Article;
 import fr.fms.entities.Category;
 import fr.fms.entities.Customer;
@@ -88,6 +89,8 @@ public class IBusinessImpl implements IBusiness {
 		return ((ArticleDao) articleDao).readAllByCat(id);
 	}
 	
+
+	
 	
 	// Recherche par mot clé
 	public ArrayList<Article> readAllByKeyWord(String keyWord) {
@@ -103,10 +106,15 @@ public class IBusinessImpl implements IBusiness {
 		return ((ArticleDao) articleDao).readAllPresentArticles();
 	}
 	
-
+// Affiche les commandes
 	public ArrayList<Order> readAllOrders() {
 		return orderDao.readAll();
 	}
+	
+	// Affiche les commandes par ID customer
+		public ArrayList<Order> readOrderByCustomerId(int id) {
+			return ((OrderDao) orderDao).readByCustomerId(id);
+		}
 	/**
 	 * renvoi le total de la commande en cours
 	 * @return total

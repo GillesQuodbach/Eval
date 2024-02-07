@@ -10,6 +10,7 @@ import fr.fms.dao.UserDao;
 import fr.fms.entities.Article;
 import fr.fms.entities.Category;
 import fr.fms.entities.Customer;
+import fr.fms.entities.Order;
 import fr.fms.entities.User;
 
 /**
@@ -225,6 +226,10 @@ public class ShopApp {
 			case 19:
 //				System.out.println("18 :Lire les commandes d'un client");
 		displayOrders();
+//		System.out.println("Saisissez l'ID du client à visualiser: ");
+	
+		displayOrderByCustomerId();
+		
 				break;
 			case 20:
 				System.out.println("à bientôt dans notre boutique :)");
@@ -477,6 +482,43 @@ public class ShopApp {
 				"------------------------------------------------------------------------------------------------------------------------------------");
 	}
 	
+	
+	
+	/**
+	 * Méthode qui affiche toute les commandes en base
+	 */
+//	rsId,rsAmount,rsDate,rsIdCustomer
+	public static void displayOrderByCustomerId() {
+		System.out.println("saisissez l'id du client");
+		int id = scan.nextInt();
+		scan.nextLine();
+		ArrayList<Order> orders = business.readOrderByCustomerId(id);
+		System.out.println(
+				"------------------------------------------------------------------------------------------------------------------------------------");
+		System.out.printf("%-5s | %-30s | %-40s | %-15s %n", COLUMN_ORDERID, COLUMN_PRICE, COLUMN_ORDERDATE, COLUMN_ORDERCUSTOMERID);
+		System.out.println(
+				"------------------------------------------------------------------------------------------------------------------------------------");
+		// Lignes des articles
+		orders.forEach(order -> {
+			System.out.printf("%-5s | %-30s | %-40s | %-15s %n", order.getIdOrder(), order.getAmount(), order.getDate(), order.getIdCustomer());
+		});
+		System.out.println(
+				"------------------------------------------------------------------------------------------------------------------------------------");
+//		System.out.println("saisissez l'id du client");
+//		String id = scan.next();
+//		ArrayList<Article> articles = business.readAllByKeyWord(id);
+//		if (articles != null) {
+//			System.out.println(
+//					"------------------------------------------------------------------------------------------------------------------------------------");
+//			System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n", COLUMN_ID, COLUMN_NAME,
+//					COLUMN_DESCRIPTION, COLUMN_DURATION, COLUMN_FORMAT, COLUMN_PRICE);
+//			System.out.println(
+//					"------------------------------------------------------------------------------------------------------------------------------------");
+//			articles.forEach(a -> System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n", a.getId(),
+//					a.getName(), a.getDescription(), a.getDuration(), a.getFormat(), a.getPrice()));
+//		} else
+//			System.out.println("aucune formation trouvée !");
+	}
 	/**
 	 * Méthode qui passe la commande, l'utilisateur doit être connecté si c'est le
 	 * cas, l'utilisateur sera invité à associé un client à sa commande si le client

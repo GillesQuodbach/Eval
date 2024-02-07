@@ -33,7 +33,14 @@ public class OrderDao implements Dao<Order> {
 
 	@Override
 	public Order read(int id) {
-		// TODO Auto-generated method stub
+		try (Statement statement = connection.createStatement()){
+			String str = "SELECT * FROM T_Orders where IdCustomer=" + id + ";";			
+			System.out.println(str);
+			ResultSet rs = statement.executeQuery(str);
+			if(rs.next()) return new Order(rs.getInt(1) , rs.getDouble(2) , rs.getDate(3) , rs.getInt(4));
+		} catch (SQLException e) {
+			logger.severe("pb sql sur la lecture d'un article " + e.getMessage());
+		} 	
 		return null;
 	}
 
@@ -69,4 +76,25 @@ public class OrderDao implements Dao<Order> {
 		}	
 		return orders;
 	}
+
+
+public ArrayList<Order> readByCustomerId(int id) {
+//	int idOrder, double amount, Date date, int idCustomer
+	ArrayList<Order> orders = new ArrayList<Order>();
+	String str = "SELECT * FROM T_Orders where IdCustomer=" + id + ";";			
+	try(Statement statement = connection.createStatement()){
+		try(ResultSet resultSet = statement.executeQuery(str)){ 			
+			while(resultSet.next()) {
+				int rsId = resultSet.getInt(1);	
+				double rsAmount = resultSet.getDouble(2);
+				Date rsDate = resultSet.getDate(3);
+				int rsIdCustomer = resultSet.getInt(4);
+				orders.add((new Order(rsId,rsAmount,rsDate,rsIdCustomer)));						
+			}	
+		}
+	} catch (SQLException e) {
+		logger.severe("pb sql sur revoi de tous articles " + e.getMessage());
+	}	
+	return orders;
+}
 }
