@@ -7,6 +7,7 @@ package fr.fms.business;
 import java.util.ArrayList;
 import fr.fms.entities.Article;
 import fr.fms.entities.Category;
+import fr.fms.entities.Order;
 
 public interface IBusiness {	
 	/**
@@ -54,11 +55,44 @@ public interface IBusiness {
 	 * @return Liste de catégories en base
 	 */
 	public ArrayList<Category> readCategories();
-	
+	/**
+	 * méthode qui renvoi tous les articles d'une catégorie
+	 * @param id de la catégorie
+	 * @return Liste d'articles
+	 */
+	public Category readOneCategory(int id);
 	/**
 	 * méthode qui renvoi tous les articles d'une catégorie
 	 * @param id de la catégorie
 	 * @return Liste d'articles
 	 */
 	public ArrayList<Article> readArticlesByCatId(int idCat);
+	
+	/**
+	 * méthode qui renvoi tous les articles par mot clé
+	 * @param keyWord mot recherché
+	 * @return Liste d'articles
+	 */
+	public ArrayList<Article> readAllByKeyWord(String keyWord);
+	/**
+	 * méthode qui renvoi tous les articles en distancielle
+	 * @return Liste d'articles
+	 */
+	public ArrayList<Article> readRemoteArticles() ;
+	/**
+	 * méthode qui renvoi tous les articles en présentielle
+	 * @return Liste d'articles
+	 */
+	public ArrayList<Article> readPresentArticles() ;
+	/**
+	 * méthode qui renvoi toute les commandes
+	 * @return Liste de commandes
+	 */
+	public ArrayList<Order> readAllOrders() ;
+	/**
+	 * méthode qui renvoi tous les articles d'une catégorie
+	 * @param id du client
+	 * @return Liste de commande
+	 */
+	public ArrayList<Order> readOrderByCustomerId(int id) ;
 }

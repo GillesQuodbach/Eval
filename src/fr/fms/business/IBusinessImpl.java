@@ -89,32 +89,35 @@ public class IBusinessImpl implements IBusiness {
 		return ((ArticleDao) articleDao).readAllByCat(id);
 	}
 	
-
-	
-	
+	@Override
 	// Recherche par mot clé
 	public ArrayList<Article> readAllByKeyWord(String keyWord) {
 		return ((ArticleDao) articleDao).readByKeyWord(keyWord);
 	}
-
+@Override
 	// Formation remote
 	public ArrayList<Article> readRemoteArticles() {
 		return ((ArticleDao) articleDao).readAllRemoteArticles();
 	}
+@Override
 	// Formation présentielle
 	public ArrayList<Article> readPresentArticles() {
 		return ((ArticleDao) articleDao).readAllPresentArticles();
 	}
-	
+	@Override
 // Affiche les commandes
 	public ArrayList<Order> readAllOrders() {
 		return orderDao.readAll();
 	}
-	
+	@Override
 	// Affiche les commandes par ID customer
 		public ArrayList<Order> readOrderByCustomerId(int id) {
 			return ((OrderDao) orderDao).readByCustomerId(id);
 		}
+	@Override
+	public Category readOneCategory(int id) {
+		return categoryDao.read(id);
+	}
 	/**
 	 * renvoi le total de la commande en cours
 	 * @return total
@@ -133,7 +136,5 @@ public class IBusinessImpl implements IBusiness {
 		cart.clear();		
 	}
 
-	public Category readOneCategory(int id) {
-		return categoryDao.read(id);
-	}
+
 }

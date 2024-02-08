@@ -27,7 +27,6 @@ public class ShopApp {
 	private static Scanner scan = new Scanner(System.in);
 	private static IBusinessImpl business = new IBusinessImpl();
 	private static Authenticate authenticate = new Authenticate();
-
 	public static final String TEXT_BLUE = "\u001B[36m";
 	public static final String TEXT_GREEN = "\u001B[32m";
 	public static final String TEXT_RESET = "\u001B[0m";
@@ -49,18 +48,13 @@ public class ShopApp {
 		
 		boolean isAdminLoggedIn = false;
 		
-
-//		UserDao userDao = new UserDao();
-//		userDao.findUserByRole();
 		System.out.println("Bonjour et bienvenu sur FMS FORMATION, voici la liste de nos formations \n");
-		
 		displayArticles();
 		int choice = 0;
 		while (choice != 20) {
 			if (userRole != null) {
 				isAdminLoggedIn = true;
 			}
-//			displayAdminMenu() ;
 		if (isAdminLoggedIn) {
 			displayAdminMenu() ;
 		} else {
@@ -117,125 +111,45 @@ public class ShopApp {
 				}
 				break;
 			case 12:
-				displayArticles();
-//				String name, String description, int duration, String format, double price
 //				System.out.println("12 : Ajouter une formation à la boutique");
-				System.out.println("Saisissez le nom de la nouvelle formation: ");
-				scan.nextLine();
-				String newCourseName = scan.nextLine();
-				System.out.println("Saisissez la description de la nouvelle formation: ");
-				String newCourseDescription = scan.nextLine();
-				System.out.println("Saisissez la durée de la nouvelle formation: ");
-				int newCourseDuration = scan.nextInt();
-				scan.nextLine();
-				System.out.println("Quel est le format de la nouvelle formation: ");
-				System.out.println("1 : Présentielle 2: Distancielle ");
-	
-				String newCourseFormat = "";
-				int newCourseFormatChoice = scan.nextInt();
-				scan.nextLine();
-		
-				switch (newCourseFormatChoice) {
-				case 1: newCourseFormat = "Présentielle";
-				break;
-				case 2 : newCourseFormat = "Distancielle";
-				}
-				System.out.println("Quel est le prix de la nouvelle formation: ");
-				double newCoursePrice = scan.nextDouble();
-				scan.nextLine();
-				
-				System.out.println("Quel est la catégorie de la nouvelle formation: ");
-				int newCourseCategory = scan.nextInt();
-				scan.nextLine();
-				DaoFactory.getArticleDao().create(new Article(newCourseName, newCourseDescription,newCourseDuration, newCourseFormat,newCoursePrice,newCourseCategory));
+				displayArticles();
+				addFormationToShop();
 				break;
 			case 13:
-				displayArticles();
 //				System.out.println("13 : Supprimer une formation de la boutique");
-				System.out.println("Saisissez l'ID de la formation à supprimer: ");
-				int articleIdToRemove = scan.nextInt();
-				scan.nextLine();
-				Article articleToRemove = DaoFactory.getArticleDao().read(articleIdToRemove);
-				DaoFactory.getArticleDao().delete(articleToRemove);
+				displayArticles();
+				deleteFormationFromShop();
 				break;
 			case 14:
-				displayArticles();
 //				System.out.println("14 : Modifier une formation de la boutique");
-//				"UPDATE T_Articles set Name=? , Description=? , Duration=? , Format=?  Price=? , IdCategory=? where idArticle=?;";
-				System.out.println("Saisissez l'ID de la formation à modifier: ");
-				int articleIdToUpdate = scan.nextInt();
-				scan.nextLine();
-				System.out.println();
-				System.out.println("Saisissez le nouveau nom de la formation: ");
-				String articleNameToUpDate = scan.nextLine();
-				System.out.println("Saisissez la nouvelle descritpion de la formation: ");
-				String articleDescriptionToUpDate = scan.nextLine();
-				System.out.println("Saisissez la nouvelle durée de la formation: ");
-				int articleDurationToUpDate = scan.nextInt();
-				scan.nextLine();
-				System.out.println("Saisissez le nouveau format de la formation: ");
-				System.out.println("1 : Présentielle 2: Distancielle ");
-
-				String courseFormatToUpdate = "";
-				int updatedCourseFormatChoice = scan.nextInt();
-				scan.nextLine();
-				switch (updatedCourseFormatChoice) {
-				case 1: courseFormatToUpdate = "Présentielle";
-				break;
-				case 2 : courseFormatToUpdate = "Distancielle";
-				}
-
-				System.out.println("Quel est le prix de la nouvelle formation: ");
-				double newUpdatedCoursePrice = scan.nextDouble();
-				scan.nextLine();
-				System.out.println("Quel est la catégorie de la nouvelle formation: ");
-				int newUpdatedCourseCategory = scan.nextInt();
-				scan.nextLine();
-				DaoFactory.getArticleDao().update(new Article(articleIdToUpdate,articleNameToUpDate, articleDescriptionToUpDate,articleDurationToUpDate,courseFormatToUpdate,newUpdatedCoursePrice,newUpdatedCourseCategory));
+				displayArticles();
+				upDateFormationFromShop();
 				break;
 			case 15:
-				displayCategories();
-				System.out.println("Saisissez le nom de la nouvelle catégorie: ");
-				String newCategoryName = scan.next();
-				System.out.println("Saisissez la description de la nouvelle catégorie: ");
-				String newCategoryDescription = scan.next();
-				DaoFactory.getCategoryDao().create(new Category(newCategoryName, newCategoryDescription));
 //				System.out.println("15 : Ajouter une catégorie de formation");
+				displayCategories();
+				addCategoryToShop();
 				
 				break;
 			case 16:
-				displayCategories();
 //				System.out.println("16 : Supprimer une catégorie de formation");
-				System.out.println("Saisissez l'ID de la catégorie à supprimer: ");
-				int categoryIdToRemove = scan.nextInt();
-				scan.nextLine();
-				Category categoryToRemove = DaoFactory.getCategoryDao().read(categoryIdToRemove);
-				DaoFactory.getCategoryDao().delete(categoryToRemove);
+				displayCategories();
+				deleCategoryFromShop();
 				
 				break;
 			case 17:
-				displayCategories();
 //				System.out.println("17 : Modifier une catégorie de formation");
-				System.out.println("Saisissez l'ID de catégorie à modifier: ");
-				int idCategoryToUpdate = scan.nextInt();
-				scan.nextLine();
-				System.out.println();
-				System.out.println("Saisissez le nouveau nom de la catégorie: ");
-				String categoryNameToUpDate = scan.nextLine();
-				System.out.println("Saisissez la nouvelle descritpion de la catégorie: ");
-				String categoryDescriptionToUpDate = scan.nextLine();
-				DaoFactory.getCategoryDao().update(new Category(idCategoryToUpdate,categoryNameToUpDate, categoryDescriptionToUpDate));
+				displayCategories();
+				upDateCategoryFromShop();
 				break;
 			case 18:
 //				System.out.println("18 :Lire toutes les commandes");
-		displayOrders();
+				displayOrders();
 				break;
 			case 19:
 //				System.out.println("18 :Lire les commandes d'un client");
-		displayOrders();
-//		System.out.println("Saisissez l'ID du client à visualiser: ");
-	
-		displayOrderByCustomerId();
+				displayOrders();
+				displayOrderByCustomerId();
 		
 				break;
 			case 20:
@@ -285,33 +199,129 @@ public class ShopApp {
 		System.out.printf("%-2s : %-40s %-2s : %-40s%n", "7", "Rechercher une formation par mot clé", "18", "Voir toutes les commandes");
 		System.out.printf("%-2s : %-40s %-2s : %-40s%n", "8", "Afficher toutes les catégories en base", "19", "Voir commandes d'un client");
 		System.out.printf("%-2s   %-40s %-2s : %-40s%n", "", "", "20", "Sortir de l'application");
-
-			
-//			System.out.println(TEXT_GREEN + "Compte ADMINISTRATEUR : " + login);
-//		System.out.println("Pour réaliser une action, tapez le code correspondant");
-//			System.out.println("\n" + "Pour réaliser une action, tapez le code correspondant");
-//			System.out.println("1 : Ajouter une formation au panier");
-//			System.out.println("2 : Retirer une formation du panier");
-//			System.out.println("3 : Afficher mon panier + total pour passer commande");
-//			System.out.println("4 : Afficher toutes les formations");
-//			System.out.println("5 : Afficher les formations en distancielles");
-//			System.out.println("6 : Afficher les formations en présentielles");
-//			System.out.println("7 : Rechercher une formation par mot clé");
-//			System.out.println("8 : Afficher toutes les catégories en base");
-//			System.out.println("9 : Afficher tous les formations d'une catégorie");
-//			System.out.println("10 : Connexion(Deconnexion) à votre compte");
-//			System.out.println("11 : Connexion(Deconnexion) compte ADMINISTRATION");
-//			System.out.println("12 : Ajouter une formation à la boutique");
-//			System.out.println("13 : Supprimer une formation de la boutique");
-//			System.out.println("14 : Modifier une formation de la boutique");
-//			System.out.println("15 : Ajouter une catégorie de formation");
-//			System.out.println("16 : Supprimer une catégorie de formation");
-//			System.out.println("17 : Modifier une catégorie de formation");
-//			System.out.println("18 : Voir commandes toutes les commandes");
-//			System.out.println("19 : Voir commandes d'un client");
-//			System.out.println("20 : Sortir de l'application");
 	}
 
+	/**
+	 * Méthode qui modifie une categorie
+	 */
+	public static void upDateCategoryFromShop() {
+		System.out.println("Saisissez l'ID de catégorie à modifier: ");
+		int idCategoryToUpdate = scan.nextInt();
+		scan.nextLine();
+		System.out.println();
+		System.out.println("Saisissez le nouveau nom de la catégorie: ");
+		String categoryNameToUpDate = scan.nextLine();
+		System.out.println("Saisissez la nouvelle descritpion de la catégorie: ");
+		String categoryDescriptionToUpDate = scan.nextLine();
+		DaoFactory.getCategoryDao().update(new Category(idCategoryToUpdate,categoryNameToUpDate, categoryDescriptionToUpDate));
+	}
+	
+	/**
+	 * Méthode qui supprime une categorie
+	 */
+	public static void deleCategoryFromShop() {
+		System.out.println("Saisissez l'ID de la catégorie à supprimer: ");
+		int categoryIdToRemove = scan.nextInt();
+		scan.nextLine();
+		Category categoryToRemove = DaoFactory.getCategoryDao().read(categoryIdToRemove);
+		DaoFactory.getCategoryDao().delete(categoryToRemove);
+	}
+	/**
+	 * Méthode qui ajoute une categorie
+	 */
+	public static void addCategoryToShop() {
+		System.out.println("Saisissez le nom de la nouvelle catégorie: ");
+		String newCategoryName = scan.next();
+		System.out.println("Saisissez la description de la nouvelle catégorie: ");
+		String newCategoryDescription = scan.next();
+		DaoFactory.getCategoryDao().create(new Category(newCategoryName, newCategoryDescription));
+	}
+	
+	/**
+	 * Méthode qui modifie une formation
+	 */
+	public static void upDateFormationFromShop() {
+		System.out.println("Saisissez l'ID de la formation à modifier: ");
+		int articleIdToUpdate = scan.nextInt();
+		scan.nextLine();
+		System.out.println();
+		System.out.println("Saisissez le nouveau nom de la formation: ");
+		String articleNameToUpDate = scan.nextLine();
+		System.out.println("Saisissez la nouvelle descritpion de la formation: ");
+		String articleDescriptionToUpDate = scan.nextLine();
+		System.out.println("Saisissez la nouvelle durée de la formation: ");
+		int articleDurationToUpDate = scan.nextInt();
+		scan.nextLine();
+		System.out.println("Saisissez le nouveau format de la formation: ");
+		System.out.println("1 : Présentielle 2: Distancielle ");
+
+		String courseFormatToUpdate = "";
+		int updatedCourseFormatChoice = scan.nextInt();
+		scan.nextLine();
+		switch (updatedCourseFormatChoice) {
+		case 1: courseFormatToUpdate = "Présentielle";
+		break;
+		case 2 : courseFormatToUpdate = "Distancielle";
+		}
+
+		System.out.println("Quel est le prix de la nouvelle formation: ");
+		double newUpdatedCoursePrice = scan.nextDouble();
+		scan.nextLine();
+		System.out.println("Quel est la catégorie de la nouvelle formation: ");
+		int newUpdatedCourseCategory = scan.nextInt();
+		scan.nextLine();
+		DaoFactory.getArticleDao().update(new Article(articleIdToUpdate,articleNameToUpDate, articleDescriptionToUpDate,articleDurationToUpDate,courseFormatToUpdate,newUpdatedCoursePrice,newUpdatedCourseCategory));
+	}
+	/**
+	 * Méthode qui supprime une formation
+	 */
+	public static void deleteFormationFromShop() {
+		System.out.println("Saisissez l'ID de la formation à supprimer: ");
+		int articleIdToRemove = scan.nextInt();
+		scan.nextLine();
+		Article articleToRemove = DaoFactory.getArticleDao().read(articleIdToRemove);
+		DaoFactory.getArticleDao().delete(articleToRemove);
+	}
+	
+	
+	/**
+	 * Méthode qui ajoute une formation
+	 */
+	public static void addFormationToShop() {
+		System.out.println("Saisissez le nom de la nouvelle formation: ");
+		scan.nextLine();
+		String newCourseName = scan.nextLine();
+		System.out.println("Saisissez la description de la nouvelle formation: ");
+		String newCourseDescription = scan.nextLine();
+		System.out.println("Saisissez la durée de la nouvelle formation: ");
+		int newCourseDuration = scan.nextInt();
+		scan.nextLine();
+		System.out.println("Quel est le format de la nouvelle formation: ");
+		System.out.println("1 : Présentielle 2: Distancielle ");
+
+		String newCourseFormat = "";
+		int newCourseFormatChoice = scan.nextInt();
+		scan.nextLine();
+
+		switch (newCourseFormatChoice) {
+		case 1: newCourseFormat = "Présentielle";
+		break;
+		case 2 : newCourseFormat = "Distancielle";
+		}
+		System.out.println("Quel est le prix de la nouvelle formation: ");
+		double newCoursePrice = scan.nextDouble();
+		scan.nextLine();
+		
+		System.out.println("Quel est la catégorie de la nouvelle formation: ");
+		int newCourseCategory = scan.nextInt();
+		scan.nextLine();
+		DaoFactory.getArticleDao().create(new Article(newCourseName, newCourseDescription,newCourseDuration, newCourseFormat,newCoursePrice,newCourseCategory));
+	}
+	
+	
+	
+	
+	
 	/**
 	 * Méthode qui affiche tous les articles en base en centrant le texte
 	 */
@@ -411,8 +421,6 @@ public class ShopApp {
 	 * Méthode qui affiche toutes les catégories
 	 */
 	private static void displayCategories() {
-//		System.out.println(Category.centerString(COLUMN_ID) + Category.centerString(COLUMN_NAME)
-//				+ Category.centerString(COLUMN_DESCRIPTION));
 		System.out.printf("              AFFICHAGE PAR CATEGORIE    %n");
 		System.out.printf("----------------------------------------------------------------------------------------%n");
 		System.out.printf("%-15s | %-50s | %-15s | %n", COLUMN_ID, COLUMN_DESCRIPTION, COLUMN_NAME);
@@ -511,20 +519,6 @@ public class ShopApp {
 		});
 		System.out.println(
 				"------------------------------------------------------------------------------------------------------------------------------------");
-//		System.out.println("saisissez l'id du client");
-//		String id = scan.next();
-//		ArrayList<Article> articles = business.readAllByKeyWord(id);
-//		if (articles != null) {
-//			System.out.println(
-//					"------------------------------------------------------------------------------------------------------------------------------------");
-//			System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n", COLUMN_ID, COLUMN_NAME,
-//					COLUMN_DESCRIPTION, COLUMN_DURATION, COLUMN_FORMAT, COLUMN_PRICE);
-//			System.out.println(
-//					"------------------------------------------------------------------------------------------------------------------------------------");
-//			articles.forEach(a -> System.out.printf("%-5s | %-30s | %-40s | %-15s | %-15s | %-10s | %n", a.getId(),
-//					a.getName(), a.getDescription(), a.getDuration(), a.getFormat(), a.getPrice()));
-//		} else
-//			System.out.println("aucune formation trouvée !");
 	}
 	/**
 	 * Méthode qui passe la commande, l'utilisateur doit être connecté si c'est le
@@ -651,19 +645,10 @@ public class ShopApp {
 			if ((id > 0) && (userRole.equals("Admin"))) {
 				login = log;
 				idUser = id;
-		
 				System.out.print(TEXT_GREEN);
 			} else {
 				System.out.println("accès non autorisé");
 			}
-//			if (role.equals("Admin")) {
-//				login = log;
-//				userRole = role;
-//				System.out.print(TEXT_RED);
-//			} else {
-//				System.out.println("login ou password incorrect");
-//
-//				}
 			}
 		}
 	

@@ -54,11 +54,17 @@ public class Authenticate {
 	public Customer existCustomerByEmail(String email) {
 		return ((CustomerDao)customerDao).findCustomerByEmail(email);
 	}
-
+	/**
+	 * méthode qui crée un utilisateur
+	 * @param email, password
+	 */
 	public void addUser(String email, String password) {
 		userDao.create(new User(email, password));		
 	}
-
+	/**
+	 * méthode qui crée un client
+	 * @param customer
+	 */
 	public boolean addCustomer(Customer customer) {
 		return customerDao.create(customer);		
 	}
