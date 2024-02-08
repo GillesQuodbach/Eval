@@ -46,15 +46,22 @@ public class ShopApp {
 	private static String login = null;
 
 	public static void main(String[] args) {
+		
+		boolean isAdminLoggedIn = false;
+		
+
 //		UserDao userDao = new UserDao();
 //		userDao.findUserByRole();
 		System.out.println("Bonjour et bienvenu sur FMS FORMATION, voici la liste de nos formations \n");
 		
 		displayArticles();
 		int choice = 0;
-		while (choice != 19) {
-		
-		if (userRole != null) {
+		while (choice != 20) {
+			if (userRole != null) {
+				isAdminLoggedIn = true;
+			}
+//			displayAdminMenu() ;
+		if (isAdminLoggedIn) {
 			displayAdminMenu() ;
 		} else {
 			 displayMenu();
