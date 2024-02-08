@@ -149,8 +149,7 @@ public class UserDao implements Dao<User> {
 	}
 	
 	/**
-	 * Méthode renvoi un utilisateur à partir de son login
-	 * @param login
+	 * Méthode renvoi un utilisateur avec pour role Admin
 	 * @return user
 	 */
 	public User findUserByRole() {
